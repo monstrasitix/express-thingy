@@ -1,6 +1,7 @@
-import type { Express } from "express";
 import cors from "cors";
-import { setupRouter } from "@/api/router";
+import type { Express } from "express";
+
+import apiV1 from "@/api/v1";
 
 type ServerConfig = {
   port: string;
@@ -13,7 +14,7 @@ export function setupServer(app: Express, config: ServerConfig) {
     }),
   );
 
-  setupRouter(app);
+  apiV1(app);
 
   app.listen(config.port, function () {
     console.log(`Listening on: http://localhost:${config.port}`);
