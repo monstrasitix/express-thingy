@@ -1,0 +1,17 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "vite"
+  },
+  "devDependencies": {
+    "babel-preset-solid": "^1.8.19",
+    "solid-js": "^1.8.21",
+    "vite": "^5.4.1",
+    "vite-plugin-solid": "^2.10.2",
+    "vite-tsconfig-paths": "^5.0.1"
+  }
+}

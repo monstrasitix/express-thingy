@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "CommonJS",
+    "removeComments": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2016"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "name": "Backend",
+      "path": "./apps/backend"
+    },
+    {
+      "name": "Frontend",
+      "path": "./apps/frontend"
+    },
+    {
+      "name": "Root",
+      "path": "./"
+    }
+  ]
+}
