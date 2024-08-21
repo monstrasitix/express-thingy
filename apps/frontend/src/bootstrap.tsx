@@ -8,10 +8,10 @@ type User = {
 };
 
 function HelloWorld() {
-  const [users] = createResource<User[]>(async () => {
-     const response = await fetch("http://localhost:4000/api/v1/users");
-
-    return response.json();
+  const [users] = createResource<User[]>(() => {
+    return fetch(`${import.meta.env.VITE_GATEWAY_BACKEND}/api/v1/users`).then(
+      (response) => response.json(),
+    );
   });
 
   return (

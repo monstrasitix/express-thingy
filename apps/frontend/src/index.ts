@@ -1,5 +1,7 @@
 import { bootstrap } from "@/bootstrap";
 
-{
-  bootstrap(document.getElementById("root")!);
+const target = document.getElementById("root");
+
+if (target) {
+  bootstrap(target);
 }
