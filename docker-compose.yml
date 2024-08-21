@@ -3,9 +3,9 @@ services:
     build:
       context: ./apps/backend
       dockerfile: ./Dockerfile
-    expose:
-      - 4000
+    environment:
+      PORT: 8080
     ports:
-      - 3000:4000
+      - 5001:8080
     volumes:
       - ./apps/backend/src:/app/src
