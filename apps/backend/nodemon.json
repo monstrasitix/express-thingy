@@ -1,6 +1,7 @@
 {
-    "watch": ["./src/**/*.ts"],
-    "ignore": ["./src/**/*.spec.ts"],
-    "exec": "tsx ./src/index.ts"
-  }
-  
+  "watch": ["./src/**/*.ts"],
+  "ext": "js,ts,json,html",
+  "delay": "500ms",
+  "ignore": ["./src/**/*.spec.ts"],
+  "exec": "tsx ./src/index.ts"
+}
