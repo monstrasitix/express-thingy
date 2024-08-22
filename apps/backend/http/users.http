@@ -1,0 +1,21 @@
+GET http://localhost:5001/api/v1/users HTTP/1.1
+
+###
+
+POST http://localhost:5001/api/v1/users HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+    id: "100",
+    firstName: "John",
+    lastName: "Doe"
+}
+
+###
+
+GET http://localhost:5001/api/v1/users/100 HTTP/1.1
+
+###
+
+DELETE http://localhost:5001/api/v1/users/100 HTTP/1.1

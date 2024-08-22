@@ -2,10 +2,9 @@
   "compilerOptions": {
     "strict": true,
     "esModuleInterop": true,
-    "resolveJsonModule": false,
+    "resolveJsonModule": true,
     "paths": {
       "@/*": ["./src/*"]
     }
-  },
-  "include": ["./src", "./test"]
+  }
 }

@@ -1,4 +1,5 @@
 import cors from "cors";
+import bodyParser from "body-parser";
 import type { Express } from "express";
 
 import apiV1 from "@/api/v1";
@@ -8,11 +9,8 @@ type ServerConfig = {
 };
 
 export function setupServer(app: Express, config: ServerConfig) {
-  app.use(
-    cors({
-      methods: ["GET"],
-    }),
-  );
+  app.use(bodyParser.json());
+  app.use(cors({ methods: ["GET"] }));
 
   apiV1(app);
 

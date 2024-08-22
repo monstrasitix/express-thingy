@@ -1,3 +1,4 @@
+import { getDatabase } from "@/database/client";
 import { Request, Response } from "express";
 
 type Animal = {
@@ -6,40 +7,44 @@ type Animal = {
   name: string;
 };
 
-let animals: Animal[] = [
-  { id: "1", type: "Dog", name: "Doug" },
-  { id: "2", type: "Cat", name: "Kirry" },
-  { id: "3", type: "Fish", name: "Blob" },
-];
+export async function getAnimals(req: Request, res: Response<Animal[]>) {
+  const db = getDatabase();
 
-export function getAnimals(req: Request, res: Response<Animal[]>) {
-  res.json(animals);
+  res.json(await db.collection<Animal>("animals").find({}).toArray());
 }
 
-export function getAnimal(
+export async function getAnimal(
   req: Request<{ id: string }>,
   res: Response<Animal | null>,
 ) {
-  const animalId = req.params.id;
+  const db = getDatabase();
 
-  res.json(animals.find((animal) => animal.id === animalId));
+  res.json(
+    await db.collection<Animal>("animals").findOne({
+      id: req.params.id,
+    }),
+  );
 }
 
-export function createAnimal(
+export async function createAnimal(
   req: Request<null, null, Omit<Animal, "id">>,
   res: Response<Animal>,
 ) {
+  const db = getDatabase();
+
   const newAnimal: Animal = {
     id: Math.random().toString(),
     ...req.body,
   };
 
-  animals.push(newAnimal);
+  await db.collection<Animal>("animals").insertOne(newAnimal);
   res.json(newAnimal);
 }
 
-export function deleteAnimal(req: Request<{ id: string }>) {
-  const animalId = req.params.id;
+export async function deleteAnimal(req: Request<{ id: string }>) {
+  const db = getDatabase();
 
-  animals = animals.filter((animal) => animal.id !== animalId);
+  await db.collection<Animal>("animals").deleteOne({
+    id: req.params.id,
+  });
 }

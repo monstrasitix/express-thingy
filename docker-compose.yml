@@ -1,17 +1,36 @@
+version: "3.1"
+
 services:
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongo
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+    volumes:
+      - ./db_data/:/data/db/
+    networks:
+      - app-network
+
   server:
     build:
       context: ./apps/backend
       dockerfile: ./Dockerfile
     environment:
       PORT: 8080
+      CONN_STRING: mongodb://root:pass@mongo:27017
+    depends_on:
+      - mongo
     ports:
       - 5001:8080
     networks:
       - app-network
     volumes:
       - ./apps/backend/src:/app/src
-  
+
   frontend:
     build:
       context: ./apps/frontend
