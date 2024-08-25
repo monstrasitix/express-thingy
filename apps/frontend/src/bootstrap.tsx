@@ -1,34 +1,15 @@
-import { createResource } from "solid-js";
+import { Route, Router } from "@solidjs/router";
 import { render } from "solid-js/web";
+import { Landing } from "@/view/landing";
 
-type User = {
-  id: string;
-  firstName: string;
-  lastName: string;
-};
-
-function HelloWorld() {
-  const [users] = createResource<User[]>(async () => {
-     const response = await fetch("http://localhost:4000/api/v1/users");
-
-    return response.json();
-  });
-
+export function App() {
   return (
-    <div>
-      <p>{users.loading ?? "Loading"}</p>
-
-      <ul>
-        {users()?.map((user) => (
-          <li>
-            {user.firstName} {user.lastName}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Router>
+      <Route path="/" component={Landing} />
+    </Router>
   );
 }
 
 export function bootstrap(target: HTMLElement) {
-  render(() => <HelloWorld />, target);
+  render(App, target);
 }

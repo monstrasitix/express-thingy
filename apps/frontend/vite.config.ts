@@ -5,4 +5,8 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [solidPlugin(), tsconfigPaths()],
+  server: {
+    host: true,
+    port: 8080,
+  },
 });

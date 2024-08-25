@@ -5,5 +5,5 @@ import { setupServer } from "@/server";
 config({ path: ".env" });
 
 setupServer(express(), {
-  port: process.env.PORT || "3000",
+  port: process.env.PORT,
 });

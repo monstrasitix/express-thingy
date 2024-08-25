@@ -2,6 +2,10 @@
   "compilerOptions": {
     "jsx": "preserve",
     "target": "ESNext",
+    "strict": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
     "jsxImportSource": "solid-js",
     "paths": {
       "@/*": ["./src/*"]

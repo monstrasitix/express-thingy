@@ -1,7 +1,8 @@
 {
   "watch": ["./src/**/*.ts"],
   "ext": "js,ts,json,html",
-  "delay": "500ms",
+  "delay": "1000ms",
+  "signal": "SIGTERM",
   "ignore": ["./src/**/*.spec.ts"],
   "exec": "tsx ./src/index.ts"
 }

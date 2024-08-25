@@ -1,3 +1,4 @@
+import { getDatabase } from "@/database/client";
 import { Request, Response } from "express";
 
 type User = {
@@ -6,41 +7,39 @@ type User = {
   lastName: string;
 };
 
-let users: User[] = [
-  { id: "1", firstName: "John", lastName: "Doe" },
-  { id: "2", firstName: "Sally", lastName: "Murphy" },
-  { id: "3", firstName: "Kevin", lastName: "Sullivan" },
-  { id: "4", firstName: "Devin", lastName: "Croft" },
-];
+export async function getUsers(req: Request, res: Response<User[]>) {
+  const db = getDatabase();
 
-export function getUsers(req: Request, res: Response<User[]>) {
-  res.json(users);
+  res.json(await db.collection<User>("users").find({}).toArray());
 }
 
-export function getUser(
+export async function getUser(
   req: Request<{ id: string }>,
   res: Response<User | null>,
 ) {
-  const userId = req.params.id;
+  const db = getDatabase();
 
-  res.json(users.find((user) => user.id === userId));
+  res.json(
+    await db.collection<User>("users").findOne({
+      id: req.params.id,
+    }),
+  );
 }
 
-export function createUser(
-  req: Request<null, null, Omit<User, "id">>,
+export async function createUser(
+  req: Request<null, null, User>,
   res: Response<User>,
 ) {
-  const newUser: User = {
-    id: Math.random().toString(),
-    ...req.body,
-  };
+  const db = getDatabase();
 
-  users.push(newUser);
-  res.json(newUser);
+  await db.collection<User>("users").insertOne(req.body);
+  res.json(req.body);
 }
 
-export function deleteUser(req: Request<{ id: string }>) {
-  const userId = req.params.id;
+export async function deleteUser(req: Request<{ id: string }>) {
+  const db = getDatabase();
 
-  users = users.filter((user) => user.id !== userId);
+  await db.collection<User>("users").deleteOne({
+    id: req.params.id,
+  });
 }
