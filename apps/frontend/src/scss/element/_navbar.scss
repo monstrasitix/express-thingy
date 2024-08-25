@@ -1,0 +1,29 @@
+.navbar {
+  padding: 1em 0;
+
+  &.-fixed {
+    top: 0;
+    width: 100%;
+    position: fixed;
+  }
+
+  &-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-item {
+    display: block;
+  }
+
+  &-link {
+    text-decoration: none;
+    color: black;
+    padding: 1rem;
+
+    & + & {
+      margin-left: 10px;
+    }
+  }
+}
