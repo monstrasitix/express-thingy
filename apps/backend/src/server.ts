@@ -11,9 +11,9 @@ type ServerConfig = {
 export function setupServer(app: Express, config: ServerConfig) {
   app.use(bodyParser.json());
   app.use(cors({ methods: ["GET"] }));
+  app.use("/static", staticAssets("./public"));
 
   apiV1(app);
-  app.use("/static", staticAssets("./src/public"));
 
   app.listen(config.port, function () {
     console.log(`Listening on: http://localhost:${config.port}`);
