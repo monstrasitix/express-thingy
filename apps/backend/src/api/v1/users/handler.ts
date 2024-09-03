@@ -1,16 +1,11 @@
 import { getDatabase } from "@/database/client";
+import { getCollection, User } from "@/database/collection";
 import { Request, Response } from "express";
-
-type User = {
-  id: string;
-  firstName: string;
-  lastName: string;
-};
 
 export async function getUsers(req: Request, res: Response<User[]>) {
   const db = getDatabase();
 
-  res.json(await db.collection<User>("users").find({}).toArray());
+  res.json(await getCollection(db, "users").find({}).toArray());
 }
 
 export async function getUser(
@@ -20,7 +15,7 @@ export async function getUser(
   const db = getDatabase();
 
   res.json(
-    await db.collection<User>("users").findOne({
+    await getCollection(db, "users").findOne({
       id: req.params.id,
     }),
   );
@@ -32,14 +27,14 @@ export async function createUser(
 ) {
   const db = getDatabase();
 
-  await db.collection<User>("users").insertOne(req.body);
+  await getCollection(db, "users").insertOne(req.body);
   res.json(req.body);
 }
 
 export async function deleteUser(req: Request<{ id: string }>) {
   const db = getDatabase();
 
-  await db.collection<User>("users").deleteOne({
+  await getCollection(db, "users").deleteOne({
     id: req.params.id,
   });
 }

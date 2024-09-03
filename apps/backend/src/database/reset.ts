@@ -1,5 +1,6 @@
 import { Db } from "mongodb";
 import { getDatabase } from "@/database/client";
+import { getCollection } from "@/database/collection";
 
 async function deleteCollections(db: Db) {
   for (const collection of await db.collections()) {
@@ -12,20 +13,20 @@ async function setupDatabase() {
 
   await deleteCollections(db);
 
-  await db.collection("users").insertMany([
-    { id: 1, firstName: "John", lastName: "Doe" },
-    { id: 2, firstName: "Sally", lastName: "Murphy" },
-    { id: 3, firstName: "Kevin", lastName: "Sullivan" },
-    { id: 4, firstName: "Mike", lastName: "Reed" },
-    { id: 5, firstName: "Dylan", lastName: "Clarke" },
+  await getCollection(db, "users").insertMany([
+    { firstName: "John", lastName: "Doe" },
+    { firstName: "Sally", lastName: "Murphy" },
+    { firstName: "Kevin", lastName: "Sullivan" },
+    { firstName: "Mike", lastName: "Reed" },
+    { firstName: "Dylan", lastName: "Clarke" },
   ]);
 
-  await db.collection("animals").insertMany([
-    { id: 1, type: "dog", name: "Doe" },
-    { id: 2, type: "cat", name: "Murphy" },
-    { id: 3, type: "dog", name: "Sullivan" },
-    { id: 4, type: "dog", name: "Reed" },
-    { id: 5, type: "elephant", name: "Clarke" },
+  await getCollection(db, "animals").insertMany([
+    { type: "dog", name: "Doe" },
+    { type: "cat", name: "Murphy" },
+    { type: "dog", name: "Sullivan" },
+    { type: "dog", name: "Reed" },
+    { type: "elephant", name: "Clarke" },
   ]);
 }
 

@@ -1,16 +1,11 @@
 import { getDatabase } from "@/database/client";
+import { getCollection, Animal } from "@/database/collection";
 import { Request, Response } from "express";
-
-type Animal = {
-  id: string;
-  type: string;
-  name: string;
-};
 
 export async function getAnimals(req: Request, res: Response<Animal[]>) {
   const db = getDatabase();
 
-  res.json(await db.collection<Animal>("animals").find({}).toArray());
+  res.json(await getCollection(db, "animals").find({}).toArray());
 }
 
 export async function getAnimal(
@@ -20,7 +15,7 @@ export async function getAnimal(
   const db = getDatabase();
 
   res.json(
-    await db.collection<Animal>("animals").findOne({
+    await getCollection(db, "animals").findOne({
       id: req.params.id,
     }),
   );
@@ -37,14 +32,14 @@ export async function createAnimal(
     ...req.body,
   };
 
-  await db.collection<Animal>("animals").insertOne(newAnimal);
+  await getCollection(db, "animals").insertOne(newAnimal);
   res.json(newAnimal);
 }
 
 export async function deleteAnimal(req: Request<{ id: string }>) {
   const db = getDatabase();
 
-  await db.collection<Animal>("animals").deleteOne({
+  await getCollection(db, "animals").deleteOne({
     id: req.params.id,
   });
 }
