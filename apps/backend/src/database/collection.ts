@@ -1,16 +1,16 @@
 import { Db } from "mongodb";
 
 type Collection = {
-  users: User;
-  animals: Animal;
+  users: UserRecord;
+  animals: AnimalRecord;
 };
 
-export type User = {
+export type UserRecord = {
   firstName: string;
   lastName: string;
 };
 
-export type Animal = {
+export type AnimalRecord = {
   type: string;
   name: string;
 };

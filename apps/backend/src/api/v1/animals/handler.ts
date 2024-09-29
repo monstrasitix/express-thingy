@@ -1,39 +1,58 @@
 import { getDatabase } from "@/database/client";
-import { getCollection, Animal } from "@/database/collection";
+import { getCollection, AnimalRecord } from "@/database/collection";
 import { Request, Response } from "express";
+import { ObjectId } from "mongodb";
 
-export async function getAnimals(req: Request, res: Response<Animal[]>) {
+export async function getAnimals(req: Request, res: Response<AnimalRecord[]>) {
   const db = getDatabase();
+  const query = getCollection(db, "animals").find({});
 
-  res.json(await getCollection(db, "animals").find({}).toArray());
+  try {
+    res.status(200).json(await query.toArray());
+  } catch {
+    res.status(500).end();
+  }
 }
 
 export async function getAnimal(
   req: Request<{ id: string }>,
-  res: Response<Animal | null>,
+  res: Response<AnimalRecord | null>,
 ) {
   const db = getDatabase();
 
-  res.json(
-    await getCollection(db, "animals").findOne({
+  try {
+    const record = await getCollection(db, "animals").findOne({
       id: req.params.id,
-    }),
-  );
+    });
+
+    if (record === null) {
+      res.status(404);
+    } else {
+      res.status(200).json(record);
+    }
+  } catch {
+    res.status(500).end();
+  }
 }
 
 export async function createAnimal(
-  req: Request<null, null, Omit<Animal, "id">>,
-  res: Response<Animal>,
+  req: Request<null, null, Omit<AnimalRecord, "id">>,
+  res: Response<{ id: ObjectId }>,
 ) {
   const db = getDatabase();
+  const collection = getCollection(db, "animals");
 
-  const newAnimal: Animal = {
-    id: Math.random().toString(),
-    ...req.body,
-  };
+  try {
+    const result = await collection.insertOne(req.body);
 
-  await getCollection(db, "animals").insertOne(newAnimal);
-  res.json(newAnimal);
+    if (result.acknowledged) {
+      res.status(201).json({ id: result.insertedId });
+    } else {
+      res.status(500).end();
+    }
+  } catch {
+    res.status(500).end();
+  }
 }
 
 export async function deleteAnimal(req: Request<{ id: string }>) {

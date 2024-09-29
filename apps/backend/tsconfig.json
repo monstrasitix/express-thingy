@@ -3,6 +3,7 @@
     "strict": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "outDir": "./out",
     "paths": {
       "@/*": ["./src/*"]
     }

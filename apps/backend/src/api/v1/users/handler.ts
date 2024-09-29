@@ -1,8 +1,8 @@
 import { getDatabase } from "@/database/client";
-import { getCollection, User } from "@/database/collection";
+import { getCollection, UserRecord } from "@/database/collection";
 import { Request, Response } from "express";
 
-export async function getUsers(req: Request, res: Response<User[]>) {
+export async function getUsers(req: Request, res: Response<UserRecord[]>) {
   const db = getDatabase();
 
   res.json(await getCollection(db, "users").find({}).toArray());
@@ -10,7 +10,7 @@ export async function getUsers(req: Request, res: Response<User[]>) {
 
 export async function getUser(
   req: Request<{ id: string }>,
-  res: Response<User | null>,
+  res: Response<UserRecord | null>,
 ) {
   const db = getDatabase();
 
@@ -22,8 +22,8 @@ export async function getUser(
 }
 
 export async function createUser(
-  req: Request<null, null, User>,
-  res: Response<User>,
+  req: Request<null, null, UserRecord>,
+  res: Response<UserRecord>,
 ) {
   const db = getDatabase();
 
