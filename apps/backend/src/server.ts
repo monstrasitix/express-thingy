@@ -15,7 +15,7 @@ export function setupServer(app: Express, config: ServerConfig) {
 
   apiV1(app);
 
-  app.listen(config.port, function () {
-    console.log(`Listening on: http://localhost:${config.port}`);
-  });
+  // app.listen(config.port, function () {
+  //   console.log(`Listening on: http://localhost:${config.port}`);
+  // });
 }

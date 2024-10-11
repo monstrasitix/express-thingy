@@ -1,4 +1,4 @@
 /**/node_modules
 /db_data
-/apps/**/.env
-/apps/backend/out
+/apps/**/.env*
+/apps/**/out
