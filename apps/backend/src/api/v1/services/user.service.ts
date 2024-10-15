@@ -1,11 +1,14 @@
-import { UserRecord } from "@/database/collection";
+// Dependencies
+import { TYPES } from "@/di/types";
+import { inject, injectable } from "inversify";
 import { Collection, Db, InsertOneResult } from "mongodb";
 
-export class UserModel {
-  constructor(
-    //
-    protected db: Db,
-  ) {}
+// Types
+import { UserRecord } from "@/database/collection";
+
+@injectable()
+export class UserService {
+  constructor(@inject(TYPES.Mongo) protected db: Db) {}
 
   private get collection(): Collection<UserRecord> {
     return this.db.collection("users");
@@ -15,7 +18,7 @@ export class UserModel {
     return this.collection.find().toArray();
   }
 
-  async findUSer(id: string): Promise<UserRecord | null> {
+  async findUser(id: string): Promise<UserRecord | null> {
     return this.collection.findOne({ id });
   }
 

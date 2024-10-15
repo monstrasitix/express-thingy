@@ -1,10 +1,16 @@
-import { AnimalRecord } from "@/database/collection";
+// Dependencies
+import { TYPES } from "@/di/types";
+import { inject, injectable } from "inversify";
 import { Collection, Db, InsertOneResult } from "mongodb";
 
-export class AnimalModel {
+// Types
+import { AnimalRecord } from "@/database/collection";
+
+@injectable()
+export class AnimalService {
   constructor(
     //
-    protected db: Db,
+    @inject(TYPES.Mongo) protected db: Db,
   ) {}
 
   private get collection(): Collection<AnimalRecord> {

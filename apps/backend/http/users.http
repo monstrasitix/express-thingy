@@ -9,17 +9,16 @@ POST {{host}}/users HTTP/1.1
 Accept: application/json
 
 {
-    "id": "100",
     "firstName": "John",
     "lastName": "Doe"
 }
 
 ###
 
-GET {{host}}/100 HTTP/1.1
+GET {{host}}/users/66cf9a1b460ae5592cec8f2d HTTP/1.1
 Accept: application/json
 
 ###
 
-DELETE {{host}}/100 HTTP/1.1
+DELETE {{host}}/users/100 HTTP/1.1
 Accept: application/json

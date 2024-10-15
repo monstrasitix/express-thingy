@@ -16,11 +16,11 @@ Accept: application/json
 
 ###
 
-GET {{host}}/100 HTTP/1.1
+GET {{host}}/animals/100 HTTP/1.1
 Accept: application/json
 
 ###
 
-DELETE {{host}}/100 HTTP/1.1
+DELETE {{host}}/animals/100 HTTP/1.1
 Accept: application/json
 
