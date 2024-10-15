@@ -1,5 +1,6 @@
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.rulers": [80, 120]
+  "editor.rulers": [80, 120],
+  "cmake.ignoreCMakeListsMissing": true
 }
