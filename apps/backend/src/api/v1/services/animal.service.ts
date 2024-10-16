@@ -5,9 +5,10 @@ import { Collection, Db, InsertOneResult, ObjectId } from "mongodb";
 
 // Types
 import { AnimalRecord } from "@/database/collection";
+import { IAnimalService } from "@/api/v1/interfaces/animal.service";
 
 @injectable()
-export class AnimalService {
+export class AnimalService implements IAnimalService {
   constructor(
     //
     @inject(TYPES.Mongo) protected db: Db,

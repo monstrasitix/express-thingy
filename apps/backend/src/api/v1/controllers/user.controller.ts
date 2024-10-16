@@ -12,25 +12,21 @@ import {
 } from "inversify-express-utils";
 
 // Services
-import { UserService } from "@/api/v1/services/user.service";
 import { UserRecord } from "@/database/collection";
+import { IUserService } from "@/api/v1/interfaces/user.service";
 
 @controller("/api/v1/users")
 export class UserController extends BaseHttpController {
   constructor(
     //
-    @inject(TYPES.UserService) public model: UserService,
+    @inject(TYPES.UserService) public model: IUserService,
   ) {
     super();
   }
 
   @httpGet("/")
   async getEntities() {
-    try {
-      return this.json(await this.model.getUsers(), 200);
-    } catch {
-      return this.badRequest();
-    }
+    return this.json(await this.model.getUsers(), 200);
   }
 
   @httpGet("/:id")

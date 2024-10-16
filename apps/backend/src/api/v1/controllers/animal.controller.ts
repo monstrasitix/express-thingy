@@ -17,25 +17,21 @@ import {
 } from "inversify-express-utils";
 
 // Services
-import { AnimalService } from "@/api/v1/services/animal.service";
 import { AnimalRecord } from "@/database/collection";
+import { IAnimalService } from "@/api/v1/interfaces/animal.service";
 
 @controller("/api/v1/animals")
 export class AnimalController extends BaseHttpController {
   constructor(
     //
-    @inject(TYPES.AnimalService) protected animals: AnimalService,
+    @inject(TYPES.AnimalService) protected animals: IAnimalService,
   ) {
     super();
   }
 
   @httpGet("/")
   async getEntities() {
-    try {
-      return this.json(await this.animals.getAnimals(), 200);
-    } catch {
-      return this.badRequest();
-    }
+    return this.json(await this.animals.getAnimals(), 200);
   }
 
   @httpGet("/:id")
