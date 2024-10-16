@@ -18,9 +18,9 @@ export function setupServer(app: Express, config: ServerConfig) {
   app.use(cors({ methods: ["GET"] }));
   app.use("/static", staticAssets("./public"));
 
-  new InversifyExpressServer(container, null, null, app)
-    .build()
-    .listen(config.port, function () {
-      console.log(`Listening on: http://localhost:${config.port}`);
-    });
+  const server = new InversifyExpressServer(container, null, null, app);
+
+  server.build().listen(config.port, function () {
+    console.log(`Listening on: http://localhost:${config.port}`);
+  });
 }
