@@ -1,13 +1,14 @@
 // Dependencies
 import { TYPES } from "@/di/types";
 import { inject, injectable } from "inversify";
-import { Collection, Db, InsertOneResult } from "mongodb";
+import { Collection, Db, InsertOneResult, ObjectId } from "mongodb";
 
 // Types
 import { AnimalRecord } from "@/database/collection";
+import { IAnimalService } from "@/api/v1/interfaces/animal.service";
 
 @injectable()
-export class AnimalService {
+export class AnimalService implements IAnimalService {
   constructor(
     //
     @inject(TYPES.Mongo) protected db: Db,
@@ -22,11 +23,11 @@ export class AnimalService {
   }
 
   async findAnimal(id: string): Promise<AnimalRecord | null> {
-    return this.collection.findOne({ id });
+    return this.collection.findOne({ _id: new ObjectId(id) });
   }
 
   async addAnimal(
-    animal: Omit<AnimalRecord, "id">,
+    animal: AnimalRecord,
   ): Promise<InsertOneResult<AnimalRecord>> {
     return this.collection.insertOne(animal);
   }

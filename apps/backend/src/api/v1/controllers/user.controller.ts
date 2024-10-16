@@ -1,77 +1,67 @@
-// Dependencies
-import { ObjectId } from "mongodb";
-import { Request, Response } from "express";
-
 // Dependency Injection
 import { TYPES } from "@/di/types";
 import { inject } from "inversify";
 import {
+  BaseHttpController,
   controller,
   httpDelete,
   httpGet,
   httpPost,
-  request,
-  response,
+  requestBody,
+  requestParam,
 } from "inversify-express-utils";
 
 // Services
-import { UserService } from "@/api/v1/services/user.service";
 import { UserRecord } from "@/database/collection";
+import { IUserService } from "@/api/v1/interfaces/user.service";
 
 @controller("/api/v1/users")
-export class UserController {
+export class UserController extends BaseHttpController {
   constructor(
     //
-    @inject(TYPES.UserService) public model: UserService,
-  ) {}
+    @inject(TYPES.UserService) public model: IUserService,
+  ) {
+    super();
+  }
 
   @httpGet("/")
-  async getEntities(@response() res: Response<UserRecord[]>) {
-    try {
-      res.status(200).json(await this.model.getUsers());
-    } catch {
-      res.status(500).end();
-    }
+  async getEntities() {
+    return this.json(await this.model.getUsers(), 200);
   }
 
   @httpGet("/:id")
-  async getEntity(
-    @request() req: Request<{ id: string }>,
-    @response() res: Response<UserRecord | null>,
-  ) {
+  async getEntity(@requestParam("id") id: string) {
     try {
-      const user = await this.model.findUser(req.params.id);
+      const user = await this.model.findUser(id);
 
       if (user === null) {
-        res.status(404);
+        return this.notFound();
       } else {
-        res.status(200).json(user);
+        return this.json(user, 200);
       }
     } catch {
-      res.status(500).end();
+      return this.badRequest();
     }
   }
 
   @httpPost("/")
-  async createEntity(
-    @request() req: Request<null, null, Omit<UserRecord, "id">>,
-    @response() res: Response<{ id: ObjectId }>,
-  ) {
+  async createEntity(@requestBody() user: UserRecord) {
     try {
-      const result = await this.model.addUser(req.body);
+      const result = await this.model.addUser(user);
 
       if (result.acknowledged) {
-        res.status(201).json({ id: result.insertedId });
+        return this.json({ id: result.insertedId }, 201);
       } else {
-        res.status(500).end();
+        return this.badRequest();
       }
     } catch {
-      res.status(500).end();
+      return this.badRequest();
     }
   }
 
   @httpDelete("/:id")
-  async deleteEntity(@request() req: Request<{ id: string }>) {
-    await this.model.removeUser(req.params.id);
+  async deleteEntity(@requestParam("id") id: string) {
+    await this.model.removeUser(id);
+    return this.ok();
   }
 }

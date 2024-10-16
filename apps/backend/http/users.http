@@ -2,11 +2,13 @@
 
 GET {{host}}/users HTTP/1.1
 Accept: application/json
+Content-Type: application/json
 
 ###
 
 POST {{host}}/users HTTP/1.1
 Accept: application/json
+Content-Type: application/json
 
 {
     "firstName": "John",
@@ -15,7 +17,7 @@ Accept: application/json
 
 ###
 
-GET {{host}}/users/66cf9a1b460ae5592cec8f2d HTTP/1.1
+GET {{host}}/users/67100ba6a11884efa9bd2fba HTTP/1.1
 Accept: application/json
 
 ###

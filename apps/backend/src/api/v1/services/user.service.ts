@@ -1,7 +1,7 @@
 // Dependencies
 import { TYPES } from "@/di/types";
 import { inject, injectable } from "inversify";
-import { Collection, Db, InsertOneResult } from "mongodb";
+import { Collection, Db, InsertOneResult, ObjectId } from "mongodb";
 
 // Types
 import { UserRecord } from "@/database/collection";
@@ -19,7 +19,7 @@ export class UserService {
   }
 
   async findUser(id: string): Promise<UserRecord | null> {
-    return this.collection.findOne({ id });
+    return this.collection.findOne({ _id: new ObjectId(id) });
   }
 
   async addUser(
