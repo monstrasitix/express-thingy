@@ -1,4 +1,3 @@
-// Dependencies
 import { Db } from "mongodb";
 import { Container } from "inversify";
 
@@ -9,11 +8,10 @@ import { TYPES } from "@/di/types";
 import { getDatabase } from "@/database/client";
 
 // Services
-import { UserService } from "@/api/v1/services/user.service";
-import { AnimalService } from "@/api/v1/services/animal.service";
+import { ProductService } from "@/api/v1/services/product.service";
+import { IProductService } from "@/api/v1/interfaces/product.interface";
 
 export const container = new Container();
 
 container.bind<Db>(TYPES.Mongo).toConstantValue(getDatabase());
-container.bind<UserService>(TYPES.UserService).to(UserService);
-container.bind<AnimalService>(TYPES.AnimalService).to(AnimalService);
+container.bind<IProductService>(TYPES.ProductService).to(ProductService);

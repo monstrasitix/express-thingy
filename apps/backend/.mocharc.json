@@ -1,7 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/mocharc.json",
   "extension": ["ts"],
-  "require": ["tsx", "reflect-metadata"],
+  "require": [
+    "tsx",
+    "dotenv/config",
+    "reflect-metadata",
+    "source-map-support/register"
+  ],
+  "reporter": "mochawesome",
   "timeout": 10000,
-  "spec": "tests/**/*.spec.ts"
+  "exit": true,
+  "spec": "./tests/**/*.spec.ts"
 }

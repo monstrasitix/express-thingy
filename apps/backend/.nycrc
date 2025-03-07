@@ -1,0 +1,9 @@
+{
+  "all": true,
+  "extends": "nyc-config-tsx",
+  "extension": [".ts"],
+  "include": ["src/**/*.ts"],
+  "reporter": ["html", "lcov", "text"],
+  "checkCoverage": true,
+  "lines": 0
+}

@@ -1,4 +1,7 @@
 /**/node_modules
 /db_data
 /apps/**/.env*
+/apps/**/mochawesome-report
+/apps/**/.nyc_output
 /apps/**/out
+/apps/**/coverage

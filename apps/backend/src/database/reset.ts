@@ -13,20 +13,11 @@ async function setupDatabase() {
 
   await deleteCollections(db);
 
-  await getCollection(db, "users").insertMany([
-    { firstName: "John", lastName: "Doe" },
-    { firstName: "Sally", lastName: "Murphy" },
-    { firstName: "Kevin", lastName: "Sullivan" },
-    { firstName: "Mike", lastName: "Reed" },
-    { firstName: "Dylan", lastName: "Clarke" },
-  ]);
-
-  await getCollection(db, "animals").insertMany([
-    { type: "dog", name: "Doe" },
-    { type: "cat", name: "Murphy" },
-    { type: "dog", name: "Sullivan" },
-    { type: "dog", name: "Reed" },
-    { type: "elephant", name: "Clarke" },
+  await getCollection(db, "products").insertMany([
+    { productId: "1", title: "Clothing" },
+    { productId: "2", title: "Food" },
+    { productId: "3", title: "Gadgets" },
+    { productId: "4", title: "Phones" },
   ]);
 }
 
